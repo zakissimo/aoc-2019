@@ -19,15 +19,22 @@ vector<Point> translate(vector<string>input) {
     vector<Point> out;
 
     for (const auto& e : input) {
-        if (e[0] == 'R')
-            p.x += stoi(e.substr(1));
-        else if (e[0] == 'D')
-            p.y += stoi(e.substr(1));
-        else if (e[0] == 'L')
-            p.x -= stoi(e.substr(1));
-        else if (e[0] == 'U')
-            p.y -= stoi(e.substr(1));
-        out.push_back(p);
+        if (e[0] == 'R') {
+            for (int i = p.x; p.x != i + stoi(e.substr(1));)
+                out.push_back({ ++p.x, p.y });
+        }
+        else if (e[0] == 'D') {
+            for (int i = p.y; p.y != i + stoi(e.substr(1));)
+                out.push_back({ p.x, ++p.y });
+        }
+        else if (e[0] == 'L') {
+            for (int i = p.x; p.x != i - stoi(e.substr(1));)
+                out.push_back({ --p.x, p.y });
+        }
+        else if (e[0] == 'U') {
+            for (int i = p.y; p.y != i - stoi(e.substr(1));)
+                out.push_back({ p.x, --p.y });
+        }
     }
     return out;
 }
@@ -53,14 +60,11 @@ int main(void) {
     vector<Point>wire_one = translate(split(raw_wire_one, ','));
     vector<Point>wire_two = translate(split(raw_wire_two, ','));
 
-    int delta = INT32_MAX;
     for (const auto& p_one : wire_one)
+    for (int i = 0; i < wire_one.size(); i++)
+
         for (const auto& p_two : wire_two)
             if (points_cross(p_one, p_two))
-                delta = abs(p_one.x) + abs(p_one.y) < delta
-                    ? abs(p_one.x) + abs(p_one.y)
-                    : delta;
-
-    cout << delta << endl;
+                cout << abs(p_one.x) + abs(p_one.y) << endl;
     return 0;
 }
