@@ -61,8 +61,6 @@ int main(void) {
     vector<Point>wire_two = translate(split(raw_wire_two, ','));
 
     for (const auto& p_one : wire_one)
-    for (int i = 0; i < wire_one.size(); i++)
-
         for (const auto& p_two : wire_two)
             if (points_cross(p_one, p_two))
                 cout << abs(p_one.x) + abs(p_one.y) << endl;
