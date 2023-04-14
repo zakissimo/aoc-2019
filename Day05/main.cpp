@@ -16,7 +16,7 @@ class Inst {
         int mode;
     } Param;
     Param params[3];
-    Inst(int& idx, vector<int> &intCode) {
+    Inst(int& idx, vector<int>& intCode) {
         int n = intCode[idx];
         opCode = n % 100;
         n /= 100;
